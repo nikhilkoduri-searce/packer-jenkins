@@ -1,24 +1,14 @@
 # Packer Cloudbuild
 
-Before we begin with the packer cloudbuild steps, we have to push the docker image of packer to the gcp project that contains cloudbuild.
+Before we begin with the packer cloudbuild steps, we have to install Packer on the Jenkins VM.
 ```bash
-cd packer-image
-gcloud builds submit .
-```
-We need to create a seperate vpc for packer for the images to be build.
-```bash
-gcloud compute networks create packer-vpc --project=searce-playground --subnet-mode=custom --bgp-routing-mode=regional
-```
-Next we create the subnet.
-```bash
-gcloud compute networks subnets create packer-subnet --project=searce-playground --range=10.1.0.0/16 --network=packer-vpc --region=asia-south1
-```
-We have to create a firewall rule to allow ssh from public.
-```bash
-gcloud compute --project=searce-playground firewall-rules create packer-firewall --direction=INGRESS --priority=1000 --network=packer-vpc --action=ALLOW --rules=tcp:22 --source-ranges=74.125.0.0/16,72.14.192.0/18,108.177.8.0/21,173.194.0.0/16
+wget https://releases.hashicorp.com/packer/1.6.0/packer_1.6.0_linux_amd64.zip
+apt-get install unzip
+unzip packer_1.6.0_linux_amd64.zip
+mv packer /usr/local/bin
 ```
 
-## Create tigger
+## Create Jenkinsfile
 
 
 1) #### Create the google source repository or link your git repository to csr
