@@ -1,0 +1,12 @@
+[Unit]
+Description=Manage Java service
+
+[Service]
+ExecStart=/bin/java -jar /tmp/springboot-0.0.1-SNAPSHOT.jar
+User=jvmapps
+Type=simple
+Restart=on-failure
+RestartSec=10
+
+[Install]
+WantedBy=multi-user.target

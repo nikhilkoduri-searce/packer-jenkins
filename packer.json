@@ -1,0 +1,38 @@
+{
+ "builders": [
+   {
+     "type": "googlecompute",
+     "project_id": "{{user `project_id`}}",
+     "machine_type": "{{user `machine_type`}}",
+     "source_image_family": "{{user `source_image_family`}}",
+     "region": "{{user `region`}}",
+     "zone": "{{user `zone`}}",
+     "image_description": "Centos7 machine image created with packer",
+     "image_name": "{{user `image_name`}}",
+     "network": "{{user `network`}}",
+     "subnetwork": "{{user `subnetwork`}}",
+     "image_family" : "{{user `image_family`}}",
+     "disk_size": 50,
+     "disk_type": "pd-ssd",
+     "ssh_username": "centos",
+     "use_internal_ip": true
+     "metadata": { "enable-oslogin": "false" }
+   }
+ ],
+ "provisioners": [
+    {
+     "type": "file",
+     "source": "target/",
+     "destination": "/tmp/"
+    },
+    {
+     "type": "file",
+     "source": "java-app.service",
+     "destination": "/tmp/java-app.service"
+    },
+    {
+     "type": "shell",
+     "script": "baseInit.sh"
+    }
+  ]
+}
