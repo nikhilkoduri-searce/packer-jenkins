@@ -1,7 +1,7 @@
 pipeline {
-  
+
  agent any
-  
+
  environment {
       _IMAGE_NAME='prod-centos7-javaapp-v1-image'
       _PROJECT_ID='searce-playground'
@@ -22,13 +22,17 @@ pipeline {
     }
 
 
-    stage('maven') {
+    stage('maven clean') {
       steps {
         sh 'mvn clean'
-        sh 'mvn package'
       }
     }
 
+    stage('maven package') {
+      steps {
+        sh 'mvn package'
+      }
+    }
 
     stage('packer') {
       steps {
