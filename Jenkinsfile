@@ -23,7 +23,7 @@ pipeline {
 
     stage('packer') {
       steps {
-        sh 'packer build -var image_name=${_IMAGE_NAME}-$SHORT_SHA -var project_id=searce-playground -var image_family=centos-7 -var image_zone=asia-south1-b -var zone=asia-south1-b -var region=asia-south1 -var source_image_family=centos-7 -var network=packer-vpc -var subnetwork=packer-subnet -var machine_type=${_MACHINE_TYPE} packer.json'
+        sh 'packer build -var image_name=${_IMAGE_NAME}-$SHORT_SHA -var project_id=searce-playground -var image_family=centos-7 -var image_zone=asia-south1-b -var zone=asia-south1-b -var region=asia-south1 -var source_image_family=centos-7 -var network=default -var subnetwork=default -var machine_type=${_MACHINE_TYPE} packer.json'
       }
     }
 
